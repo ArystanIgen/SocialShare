@@ -1,0 +1,25 @@
+{% extends 'bboard/base.html' %}
+{% block page_header%}
+<h3>{{ topic }}</h3>
+{% endblock page_header %}
+{% block content %}
+
+  <p>
+      <a href="{% url 'bboard:new_entry' topic.id %}">add new entry</a>
+  </p>
+  <ul>
+   {% for entry in entries %}
+      <div class="card mb-3">
+          <h4 class="card-header">
+              {{ entry.date_added|date:'M d, Y H:i' }}
+              <small><a  href="{% url 'bboard:edit_entry' entry.id %}"> Edit Entry</a> </small>
+          </h4>
+          <div class="card-body">{{ entry.entry_text|linebreaks }}</div>
+      </div>
+   {% empty %}
+      <li>There are no entries for this topic yet.</li>
+   {%  endfor %}
+  </ul>
+
+
+{% endblock content %}

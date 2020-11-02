@@ -1,0 +1,15 @@
+{% extends "bboard/base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+
+<p>Add new topic:</p>
+<form action="{% url 'bboard:new_topic'  %}" method="post" class="form">
+    {%  csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button name="submit">add topic</button>
+    {% endbuttons %}
+
+</form>
+
+{% endblock content %}
