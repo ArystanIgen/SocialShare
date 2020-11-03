@@ -4,7 +4,10 @@
   <h1 class="display-3">Welcome to my Django site</h1>
   <p class="lead">This Django site personal diary, where you can save your notes or your personal secrets.
     We promise that all your entries will be kept secret :)</p>
+  {% if user.is_authenticated %}
+  <h1></h1>
+  {% else %}
   <a class="btn btn-lg btn-primary" href="{% url 'users:register'  %}" role="button">Register &raquo;</a>
-
+  {% endif %}
 </div>
 {% endblock page_header %}

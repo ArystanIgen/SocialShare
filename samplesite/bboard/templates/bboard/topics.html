@@ -1,8 +1,9 @@
 {% extends "bboard/base.html" %}
-{% block content %}
+
 {% block page_header %}
 <h1>Topics</h1>
 {% endblock page_header %}
+{% block content %}
 <ul>
     {% for topic in topics %}
       <li><h3>
