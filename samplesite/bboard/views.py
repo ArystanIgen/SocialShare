@@ -9,10 +9,9 @@ def index(request):
 
 @login_required
 def topics(request):
-
+    owner=request.user
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
-
-    context = {'topics': topics}
+    context = {'topics': topics,"owner":owner}
     return render(request, 'bboard/topics.html', context)
 
 

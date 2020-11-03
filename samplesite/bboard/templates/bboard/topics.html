@@ -8,6 +8,8 @@
     {% for topic in topics %}
       <li><h3>
           <a href="{% url 'bboard:topic' topic.id %}">{{ topic }}</a>
+
+          <small>=>{{owner}}</small>
       </h3></li>
     {% empty %}
       <li>No topics have been added yet.</li>
