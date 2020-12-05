@@ -1,0 +1,98 @@
+
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script  type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <title>{% block title %}{% endblock %}</title>
+    
+    {% bootstrap_javascript jquery='full' %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+     
+    
+</head>
+<body>
+<ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+</ul>
+ {% if user.is_authenticated %}
+ {% bootstrap_messages %}
+
+<div class="usernav" style="margin-left: 15%;">
+
+    <ul>
+        <li><a href="{% url 'blog:dashboard' %}"><img src="{% static 'images/home.png' %}">My Feed</a></li><li><a href="{% url 'users:profile' %}"><img src="{% static 'images/profile.png'  %}">Profile</a></li><li><a href="friends.php"><img src="{% static 'images/friends.png' %}">Friends</a></li><li><a href="requests.php"><img src="{% static 'images/frequest.png' %}">Friend Requests </a></li><li><a href="{% url "users:logout" %}"><img src="{% static 'images/exit.png' %}"></a></li>
+    </ul>
+    <div class="globalsearch">
+                <form method="get" action="search.php" onsubmit="return validateField()">
+            <select name="location">
+                <option value="emails">Email</option>
+                <option value="names">Name</option>
+                <option value="hometowns">City</option>
+                <option value="posts">Publication</option>
+            </select><input type="text" placeholder="Search" name="query" id="query"><input type="submit" value="Find" id="querybutton">
+        </form>
+    </div>
+
+    <a class="weatherwidget-io" href="https://forecast7.com/en/43d2276d85/almaty/" data-label_1="LOCAL" data-label_2="WEATHER" data-theme="pure" >LOCAL WEATHER</a>
+<script>
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+</div>
+
+<script>
+function validateField(){
+    var query = document.getElementById("query");
+    var button = document.getElementById("querybutton");
+    if(query.value == "") {
+        query.placeholder = 'Type something!';
+        return false;
+    }
+    return true;
+}
+</script>
+   {% endif %}
+
+
+ {% block content %}
+    {% endblock %}
+{% block scripts %}
+<script>
+    $(".contact").click(function(ev) { // for each edit contact url
+        ev.preventDefault(); // prevent navigation
+        var url = $(this).data("form"); // get the contact form url
+        $("#contactModal").load(url, function() { // load the url into the modal
+            $(this).modal('show'); // display the modal on url load
+        });
+        return false; // prevent the click propagation
+    });
+
+    $('.contact-form').live('submit', function() {
+        $.ajax({
+            type: $(this).attr('method'),
+            url: this.action,
+            data: $(this).serialize(),
+            context: this,
+            success: function(data, status) {
+                $('#contactModal').html(data);
+            }
+        });
+        return false;
+    });
+</script>
+    {% endblock scripts %}
+    {% block extrascripts %}{% endblock extrascripts %}
+</body>
+</html>

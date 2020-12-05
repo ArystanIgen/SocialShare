@@ -1,0 +1,61 @@
+
+        .container{
+            margin: 40px auto;
+            width: 400px;
+        }
+        .content {
+            padding: 30px;
+            background-color: white;
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+
+        }
+        .post1{
+        margin-right: 50px;
+        float: right;
+        margin-bottom: 18px;
+        margin-top: 50px;
+    }
+    .post1,
+.createpost {
+    background-color: #fff !important;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75) !important;
+    margin: auto !important;
+    width: 650px !important;
+    padding: 10px 16px !important;
+    overflow: auto !important;
+    border-radius: 5px !important;
+    margin-top: 30px !important;
+}
+    .profile{
+        margin-left: 50px;
+        background-color: white;
+        box-shadow: 0 0 5px #4267b2;
+        width: 220px;
+        padding: 20px;
+        margin-top: 50px;
+        border-radius: 5px;
+        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+    }
+    input[type="file"]{
+        display: none;
+    }
+    label.upload{
+        cursor: pointer;
+        color: white;
+        background-color: #4267b2;
+        padding: 8px 12px;
+        display: inline-block;
+        max-width: 80px;
+        overflow: auto;
+    }
+    label.upload:hover{
+        background-color: #23385f;
+    }
+    .changeprofile{
+        color: #23385f;
+        font-family: Montserrat;
+    }
+    .comment {
+    margin: 20px 0px 20px 20px;
+    }

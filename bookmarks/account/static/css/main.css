@@ -1,0 +1,386 @@
+body {
+    margin: 0;
+    font-family: Montserrat;
+    font-size: 15px;
+    background-color: #4267b2;
+}
+
+input {
+    font-family: Montserrat;
+    width: 100%;
+    font-size: 18px;
+    padding: 2px;
+}
+
+button {
+    font-family: Montserrat;
+    font-size: 18px;
+}
+
+input[type=radio] {
+    width: auto;
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid #dddfe2;;
+}
+
+ul {
+    list-style: none;
+}
+
+ul a {
+    text-decoration: none;
+}
+
+span {
+    color: #333;
+}
+
+.required {
+    color: red;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1068px;
+
+}
+
+.usernav {
+    background-color: #fff;
+    overflow: auto;
+    border-radius: 0 0 5px 5px;
+    width: 70%;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.usernav ul {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.usernav ul li {
+    display: inline;
+}
+
+.usernav ul li a {
+    display: inline-block;
+    color: #4267b2;
+    padding: 30px 50px;
+    font-weight: 600;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.usernav ul li a img {
+    margin-right: 10px;
+}
+
+.usernav ul li a:hover {
+    background-color: #23385f;
+    border-radius: 5px;
+}
+
+.usernav .globalsearch {
+    display: block;
+    /* margin: 0; */
+    background-color: #fff;
+    text-align: center;
+    /* margin: 5px 0; */
+    margin: 10px 0;
+}
+
+.usernav .globalsearch input[type=text] {
+    width: auto;
+    padding: 1px 6px;
+    border: 2px solid #4267b2;
+    font-size: 15px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.usernav .globalsearch input[type=submit] {
+    width: auto;
+    padding: 1px 6px;
+    border: 2px solid #4267b2;
+    font-size: 15px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+}
+
+.usernav .globalsearch input[type=submit]:hover {
+    background-color: #23385f;
+    color: white;
+}
+
+.usernav .globalsearch select {
+    font-family: Montserrat;
+    font-size: 15px;
+    margin-left: 5px;
+    border: 2px solid #4267b2;
+    padding: 0px 0px;
+    border-radius: 5px;
+    background-color: #4267b2;
+    color: #fff;
+    font-weight: 600;
+}
+
+.post,
+.createpost {
+    background-color: #fff !important;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75) !important;
+    margin: auto !important;
+    width: 650px !important;
+    padding: 10px 16px !important;
+    overflow: auto !important;
+    border-radius: 5px !important;
+    margin-top: 30px !important;
+}
+
+.newsFeed {
+    margin: auto;
+    width: 680px;
+    padding-bottom: 40px;
+}
+
+.newsFeed h1 {
+    text-align: left;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.createpost h1 {
+
+}
+
+
+.createpostbuttons {
+    margin-left: 959px;
+    width: 30% !important;
+       margin-top: -19px;
+    margin-bottom: -29px;
+    overflow: auto !important;
+}
+
+.createpostbuttons img {
+    display: inline-block !important;
+    width: 12% !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+}
+
+.createpostbuttons label {
+    cursor: pointer !important;
+}
+
+.createpostbuttons input[type="file"] {
+    display: none !important;
+}
+
+.createpostbuttons input[type=submit] {
+    width: 86% !important;
+    float: right !important;
+    background-color: #4267b2 !important;
+}
+
+.createpostbuttons input[type=submit]:hover {
+    background-color: #23385f !important;
+}
+
+.post .public {
+    float: right;
+    text-align: center;
+    width: auto;
+}
+
+h1 {
+    font-family: Montserrat;
+    color: #23385f;
+    font-weight: normal;
+    text-align: center;
+}
+
+h2 {
+    font-family: Montserrat;
+    color: #4b4f56;
+    font-weight: bolder;
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+h3,
+a.profilelink {
+    font-family: Montserrat;
+    color: #4267b2;
+    font-weight: normal;
+    font-size: 120%;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+a.profilelink:hover {
+    text-decoration: underline;
+}
+
+hr {
+    margin-bottom: 30px;
+    margin-top: 0px;
+    border-color: red;
+}
+
+div.tab {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+div.tab button {
+    background-color: #4267b2;
+    border: none;
+    outline: none;
+    color: white;
+    float: left;
+    padding: 10px;
+    cursor: pointer;
+    width: 50%;
+}
+
+div.tab button:hover {
+    background-color: #314e85;
+}
+
+div.tab button.active {
+    background-color: #23385f;
+}
+
+#signup {
+    display: none;
+}
+
+input[type=submit] {
+    color: white;
+    cursor: pointer;
+    background-color: #23385f;
+    border: none;
+    padding: 8px;
+}
+
+.container input[type=submit] {
+    background-color: #4267b2;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.container input[type=submit]:hover {
+    background-color: #23385f;
+}
+
+input[type=checkbox] {
+    width: fit-content;
+}
+
+.frame {
+    width: 200px;
+    display: inline-block;
+    box-shadow: 0 0 5px #4267b2;
+    background-color: white;
+    padding: 10px;
+    margin: 5px;
+    margin-top: 50px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    transition: transform .2s;
+}
+
+.frame:hover {
+    transform: scale(1.1);
+}
+
+.userquery {
+    background-color: white;
+    box-shadow: 0 0 5px #4267b2;
+    margin: auto;
+    width: 220px;
+    padding: 20px 20px 0px 20px;
+    overflow: auto;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    transition: transform .2s;
+}
+
+.userquery:hover {
+    transform: scale(1.1);
+}
+
+.userquery a {
+    text-decoration: none;
+}
+
+.userquery a:hover {
+    text-decoration: underline;
+}
+
+input:disabled {
+    cursor: auto;
+}
+
+#special:hover {
+    background-color: #4267b2;
+}
+
+.logoImg {
+    text-align: center;
+}
+
+.logoImg h1 {
+    color: #fff;
+    font-weight: bolder;
+    margin: 5px 0;
+}
+
+.logoImg img {
+    margin-top: 15px;
+}
+
+#container {
+  animation: responsive 15s infinite !important;
+  animation-timing-function: ease-in-out !important;
+}
+
+@keyframes responsive {
+  0%, 100% {
+    width: 100%;
+  }
+  50% {
+    width: 110px;
+  }
+}
+
+.createPost-lables {
+    display: flex !important;
+    width: 100% !important;
+}
+
+.createPost-lables img {
+    margin-left: 10px !important;
+    height: 19px !important;
+    margin-top: 10px !important;
+}
+
+.post img {
+    margin-top: -10px !important;
+}

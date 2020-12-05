@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block title %}Logged out{% endblock %}
+{% block content %}
+{% bootstrap_css %}
+ <link rel="stylesheet" href="{% static 'css/main1.css' %}">
+<div class="container">
+    <div class="content">
+    <h1>Logged out</h1>
+    <p>You have been successfully logged out. You can <a href="{% url "users:login" %}">log-in again</a>.</p>
+    </div>
+</div>
+{% endblock %}

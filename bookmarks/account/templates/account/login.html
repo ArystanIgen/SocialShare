@@ -1,0 +1,77 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script  type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <title>{% block title %}Log in{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <style>
+        .container{
+            margin: 40px auto;
+            width: 400px;
+        }
+        .content {
+            padding: 30px;
+            background-color: white;
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        
+        }
+        
+    </style>
+</head>
+<body>
+    
+
+
+
+     {% if not user.is_authenticated %}
+<div class="logoImg">
+    <img src="{% static 'images/logo-white.png' %}" width="100px" height="100px">
+    <h1>SocialShare</h1>
+    </div>
+<div class="container">
+    <div class="tab">
+            <button class="tablink active" onclick="openTab(event,'signin')" id="link1">Login</button>
+            <button class="tablink" onclick="openTab(event,'signup')" id="link2">Sign Up</button>
+        </div>
+<div class="content">
+    <div class="tabcontent" id="signin">
+        <form method="post" onsubmit="return validateLogin()" action="{% url 'users:login' %}" >
+            {% bootstrap_form form %}
+            {% csrf_token %}
+            <p><input type="submit" value="Log-in" name="submit"></p>
+            <input type="hidden" name="next" value="{% url 'blog:dashboard' %}"/>
+                </form>
+
+            <p><a href="{% url "users:password_reset" %}">Forgotten your password?</a></p>
+    </div>
+    <div class="tabcontent" id="signup">
+         <form method="post" onsubmit="return validateRegister()" >
+            {% bootstrap_form user_form %}
+             {% csrf_token %}
+        <p><input type="submit" value="Create my account" name="submit" ></p>
+              <input type="hidden" name="next" value="{{next}}"/>
+         </form>
+
+    </div>
+</div>
+</div>
+{% else%}
+<div class="container">
+    <div class="content">
+<p>You have been successfully logged in. You can go to  <a href="{% url "blog:dashboard" %}">Main page</a>.</p>
+<p>Or you can   <a href="{% url "users:logout" %}">Log out</a>.</p>
+    </div></div>
+{% endif %}
+
+
+</body>
+</html>
+
+

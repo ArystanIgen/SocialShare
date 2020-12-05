@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+
+<form method="post" action="" onsubmit="return validatePost()" enctype="multipart/form-data">
+
+               <div class="createPost-lables"> <h2>Create Post</h2> <img src="images/createPost.png"> </div>
+                <span style="float:right; color:black">
+                    <label for="public">Can see everybody</label>
+                    <input type="checkbox" id="public" name="public">
+                </span>
+                <span class="required" style="display:none;"> Please fill the field!</span><br>
+                {% csrf_token %}
+                {{ form.blog_text|as_crispy_field }}
+                <center><img src="" id="preview" style="max-width:580px; display:none;"></center>
+                <div class="createpostbuttons">
+                    <label>
+                        <img src="images/interface.png">
+                         {{ form.photo|as_crispy_field }}
+     
+                    </label>
+                    <input type="submit" value="Post" name="post">
+                </div>
+            </form>
+
+
+<script src="resources/js/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#imagefile').change(function(){
+                preview(this);
+            });
+        });
+
+        function preview(input){
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (event){
+                    $('#preview').attr('src', event.target.result);
+                    $('#preview').css('display', 'initial');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function validatePost(){
+            var required = document.getElementsByClassName("required");
+            var caption = document.getElementsByTagName("textarea")[0].value;
+            required[0].style.display = "none";
+            if(caption == ""){
+                required[0].style.display = "initial";
+                return false;
+            }
+            return true;
+        }
+    </script>
+{% if latest_post_list %}
+{% for blog in latest_post_list%}
+<div class='post'>
+
+<p class='public'>
+    <br>
+<span class="postedtime">{{blog.date_added}}</span>
+</p>
+    {% if blog.user != request.user %}
+    <a class="profilelink" href="{% url 'users:others' blog.user %}" >{{blog.user}}</a>
+    {% else %}
+    <a class="profilelink" href="{% url 'users:profile' %}" >{{blog.user}}</a>
+    
+    {% endif %}
+
+<p class='caption'>
+    {{blog.blog_text}}
+    
+</p>
+<br>
+<center>
+    {% if blog.photo %}
+    <img style="max-width:300px" src  = "{{blog.photo.url}}">
+    {% endif %}
+    <br><br>
+</center>
+</div>
+
+{% if new_comment %}
+  <h2>Your comment has been added.</h2>
+{% else %}
+  <h2><a href="{% url 'blog:add_comment' blog.id %}"> Add a new comment</a></h2>
+  
+{% endif %}
+
+{% for comment in blog.comments.all %}
+<div class >
+
+    <div class="comment">
+        <div class="date">{{ comment.date_added }}</div>
+        {% if comment.comment_user != request.user %}
+        <strong><a href="{% url 'users:others' comment.comment_user %}">{{ comment.comment_user }}</a></strong>
+        {% else %}
+        <strong><a href="{% url 'users:profile' %}">{{ comment.comment_user }}</a></strong>
+        {% endif %}
+        <p>{{ comment.cooment_text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+</div>
+{% endfor %}
+{% else %}
+No blogs
+{% endif %}
+<script type="text/javascript">
+    function addcommentDetailSuccess(data, textStatus, jqXHR){
+$('#comments_tbody').html(data);
+}
+</script>
+{% endblock %}
+<button  value="Post" name="post" type="submit" class="btn btn-primary">Share</button>
+
+
+
+
+<form method="post" action="{% url 'blog:dashboard'  %}" on>
+                            
+                             
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                <div class="form-group">
+                                    <label class="sr-only" for="message">post</label>
+                                    {%  csrf_token %}
+                                    {{ form.blog_text|as_crispy_field }}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <label>
+
+                            {{ form.photo|as_crispy_field }}
+
+                        </label>
+                        </div>
+                        <img width="50" height="50" style = "position:absolute; left:950px;" src="{% static 'images/interface.png' %}">
+                            <button  value="Post" name="post" type="submit" class="btn btn-primary">Share</button>
+                        </div>
+                    </form>
