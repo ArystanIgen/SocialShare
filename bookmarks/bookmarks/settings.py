@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LIKES_OBJS_DICT = {'blog.models': ['Blog', 'Comment']}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

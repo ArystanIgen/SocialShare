@@ -129,7 +129,9 @@ body {
     box-shadow: 13px 10px 5px 0px rgba(0,0,0,0.75);">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
+				{% if user.profile.photo %}
 					<img src  = "{{user.profile.photo.url}}" class="img-responsive" alt="">
+				{% endif %}
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
@@ -185,7 +187,7 @@ body {
 	</div>
 </div>
 <center>
-<strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
+<strong>Powered by <a href="/" target="_blank">SocialShare</a></strong>
 </center>
 <br>
 <br>
