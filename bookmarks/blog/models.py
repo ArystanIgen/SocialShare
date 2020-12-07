@@ -4,6 +4,8 @@ from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey,GenericRelation
 from django.db.models import Sum
+from django.db import models
+from django.db.models import Q
 class LikeDislikeManager(models.Manager):
     use_for_related_fields = True
 
@@ -64,4 +66,15 @@ class Comment(models.Model):
     active = models.BooleanField(default=True)
     votes = GenericRelation(LikeDislike, related_query_name='comments')
 
+
+class UserManager(models.Manager):
+    use_for_related_fields = True
+
+    def search(self, query=None):
+        qs = self.get_queryset()
+        if query:
+            or_lookup = (Q(title__icontains=query) | Q(content__icontains=query))
+            qs = qs.filter(or_lookup)
+
+        return qs
 

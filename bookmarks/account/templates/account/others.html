@@ -1,9 +1,15 @@
 {% extends "base.html" %}
+{%  load bootstrap4 %}
 
 {% block content %}
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% bootstrap_css%}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
 <style type="text/css">
 	/***
 User Profile Sidebar by @keenthemes
@@ -15,6 +21,13 @@ body {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
+}
+
+.btn-2 {
+  margin-left: 87px;
+    margin-top: -14px;
+    height: 23px;
+  background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
 }
 
 /* Profile container */
@@ -29,13 +42,18 @@ body {
 }
 
 .profile-userpic img {
+margin-left: 59px;
   float: none;
-  margin: 0 auto;
+  
   width: 50%;
   height: 50%;
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
+  min-width: 129px;
+  max-width: 129px;
+  min-height: 140px;
+  max-height: 140px;
 }
 
 .profile-usertitle {
@@ -55,7 +73,7 @@ body {
   color: #5b9bd1;
   font-size: 12px;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 145px;
 }
 
 .profile-userbuttons {
@@ -74,9 +92,9 @@ body {
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-    
 .profile-usermenu {
-  margin-top: 30px;
+ position: absolute;
+    top: 332px;
 }
 
 .profile-usermenu ul li {
@@ -120,17 +138,31 @@ body {
   background: #fff;
   min-height: 460px;
 }
+.nav {
+    display: -ms-flexbox;
+    display: block;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 50px;
+    margin-bottom: 3px;
+    list-style: circle;
+}
 </style>
 
 <div class="container">
     <div class="row profile">
 		<div class="col-md-3">
 			<div class="profile-sidebar" style="
-    box-shadow: 13px 10px 5px 0px rgba(0,0,0,0.75);">
+    box-shadow: 13px 10px 5px 0px rgba(0,0,0,0.75);
+    margin-bottom: -50px;
+    margin-top: 58px;
+    ">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
 				{% if user.profile.photo %}
 					<img src  = "{{user.profile.photo.url}}" class="img-responsive" alt="">
+        {% else %}
+        <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU" class="img-responsive" alt="">
 				{% endif %}
 				</div>
 				<!-- END SIDEBAR USERPIC -->
@@ -139,38 +171,71 @@ body {
 					<div class="profile-usertitle-name">
 						{{user.username}}
 					</div>
+
+
+
+
+          {% with total_followers=user.followers.count %}
 					<div class="profile-usertitle-job">
-						Student
+            <span class="count">
+						<span class="total">{{ total_followers }}</span>      follower{{ total_followers|pluralize }}    </span>
 						
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
-				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm">Follow</button>
-					<button type="button" class="btn btn-danger btn-sm">Message</button>
+        
+        <button class="btn btn-2" style="line-height: 0.5;position: absolute;
+    top: 304px;
+}">
+        <a  href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button" style="
+    color: #ffffff;
+">
+
+
+
+
+              {% if request.user not in user.followers.all %}
+
+
+                    
+                    Follow
+                        
+                      {% else %} 
+                       
+                            Unfollow 
+                            {% endif %} 
+                            </a>
+                          </button>
+                                
+                                    
+{% endwith %}
+
+
+          
+					
 				</div>
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="#">
+						
 							<i class="glyphicon glyphicon-home"></i>
 							First name:{{user.first_name}} </a>
 						</li>
 						<li>
-							<a href="#">
+						
 							<i class="glyphicon glyphicon-user"></i>
 							Last name: {{user.last_name}}</a>
 						</li>
 						<li>
-							<a href="#" target="_blank">
+							
 							<i class="glyphicon glyphicon-ok"></i>
 							Date of birth:{{user.profile.date_of_birth}} </a>
 						</li>
 						<li>
-							<a href="#">
+						
 							<i class="glyphicon glyphicon-flag"></i>
 							Help </a>
 						</li>
@@ -179,17 +244,280 @@ body {
 				<!-- END MENU -->
 			</div>
 		</div>
-		<div class="col-md-9">
-            <div class="profile-content" style='box-shadow: 13px 10px 5px 0px rgba(0,0,0,0.75);'>
-			   Some user related content goes here...
-            </div>
-		</div>
+		
 	</div>
 </div>
-<center>
-<strong>Powered by <a href="/" target="_blank">SocialShare</a></strong>
-</center>
-<br>
-<br>
+<div class="col-6" style="margin-top: -358px;margin-left: 474px;max-width: 67%;">
+      
+                {% for blog in blogs%}
+                <!-- Post Begins -->
+                <section class="card mt-4">
+                    <div class="border p-2" style="
+    box-shadow: 13px 10px 5px 0px rgba(0,0,0,0.75);
+">
+                        <!-- post header -->
+                        <div class="row m-0">
+                            <div class="">
+                                {% if blog.user.profile.photo %}
+                              {% load thumbnail %}
+                                <a  href="{{blog.user.profile.photo.url}}">
+                                    <img src="{% thumbnail blog.user.profile.photo 50x50 %}" class="image-detail" >
+                                </a>
+                              {% endif %}
+                            </div>
+                            <div class="flex-grow-1 pl-2">
+                                {% if blog.user != request.user %}
+                                <a class="text-decoration-none" href="{% url 'users:others' blog.user %}">
+                                    <h2 class="text-capitalize h5 mb-0">{{blog.user}}</h2>
+                                </a> 
+                                {% else %}
+                                <a class="text-decoration-none" href="{% url 'users:profile' %}">
+                                    <h2 class="text-capitalize h5 mb-0">{{blog.user}}</h2>
+                                </a> 
+                                {% endif %}
+                                <p class="small text-secondary m-0 mt-1">{{blog.date_added}}</p>
+                            </div>
+                            
+                            <div class="dropdown">
+                                <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-chevron-down"></i>
+                                </a>
 
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    
+                                    <a class="dropdown-item text-primary" href="#">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- post body -->
+                        <div class="">
+                            <p class="my-2">
+                                {{blog.blog_text}}
+                            </p>
+                            <center>
+                            {% if blog.photo %}
+    <img style="max-width:500px" src  = "{{blog.photo.url}}">
+    {% endif %}
+    </center>
+                        </div>      
+                        <hr class="my-1">
+                        <!-- post footer begins -->
+                        <footer class="">
+                            <!-- post actions -->
+                            <div class="">
+                                <ul class="list-group list-group-horizontal">
+                                 
+                                        <li data-id="{{ blog.id }}" data-type="blog" data-action="like" title="Нравится" class="list-group-item flex-fill text-center p-0 px-lg-2 border border-0">
+                                            
+                                        <a class="small text-decoration-none" href="#">
+                                            <i class="far fa-thumbs-up"></i>
+        <span data-count="like">{{ blog.votes.likes.count }}</span></a>
+                                        
+                                    </li>
+                                    
+                                    <li data-id="{{ blog.id }}" data-type="blog" data-action="dislike" title="Не Нравится" class="list-group-item flex-fill text-center p-0 px-lg-2 border border-right-0 border-top-0 border-bottom-0">
+                                        
+                                          <a class="small text-decoration-none" href="#">
+                                            <i class="far fa-thumbs-down"></i>
+        <span data-count="dislike">{{ blog.votes.dislikes.count }}</span></a>
+                                        
+                                    </li>
+                                    
+                                    <li class="list-group-item flex-fill text-center p-0 px-lg-2 border border-right-0 border-top-0 border-bottom-0">
+                                        <a class="small text-decoration-none" data-toggle="collapse" href="#collapse{{ blog.id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <i class="fas fa-comment-alt"></i> {{ blog.comments.count }} Comment
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            
+                            <!-- collapsed comments begins -->
+                            <div class="panel-collapse collapse in" role="tabpanel" id="collapse{{ blog.id }}">
+                                <div class="card border border-right-0 border-left-0 border-bottom-0 mt-1">
+                                    <!-- new comment form -->
+                                    <section class="mt-3">
+                                        <button type="button" data-toggle="collapse" class="btn btn-outline-primary">
+                                        <a  href="{% url 'blog:add_comment' blog.id %}">Comment
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v11.586l2-2A2 2 0 0 1 4.414 11H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+  <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></a></button>
+                                    </section>
+                                    <!-- comment card bgins -->
+                                    {% for comment in blog.comments.all %}
+                                    <section>
+                                        <div class="card p-2 mt-3">
+                                            <!-- comment header -->
+                                            <div class="d-flex">
+                                                <div class="">
+                                                     {% if comment.comment_user.profile.photo %}
+                              {% load thumbnail %}
+                                <a  href="{{comment.comment_user.profile.photo.url}}">
+                                    <img src="{% thumbnail comment.comment_user.profile.photo 40x40 %}" class="image-detail" >
+                                </a>
+                              {% endif %}
+                                                </div>
+                                                <div class="flex-grow-1 pl-2">
+                                                     {% if comment.comment_user != request.user %}
+                                                    <a class="text-decoration-none text-capitalize h6 m-0" href="{% url 'users:others' comment.comment_user %}">
+                                                    {{comment.comment_user}}</a>
+                                                    {% else %}
+                                                    <a class="text-decoration-none text-capitalize h6 m-0" href="{% url 'users:profile' %}">
+                                                    {{comment.comment_user}}</a>
+                                                    {% endif%}
+
+
+
+                                                    <p class="small m-0 text-muted">{{ comment.date_added }}</p>
+                                                </div>
+                                                <div >
+                                                    <div class="dropdown">
+                                                        <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                        </a>
+
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            
+                                                            <a class="dropdown-item text-primary" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- comment header -->
+                                            <!-- comment body -->
+                                            <div class="card-body p-0">
+                                                <p class="card-text h7 mb-1">{{ comment.cooment_text|linebreaks }}</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- comment card ends -->
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- collapsed comments ends -->
+                        </footer>
+                        <!-- post footer ends -->
+                    </div>
+                </section>
+                {% endfor %}
+               
+                <!-- Post Ends -->
+            </div>
+            <br><br>
+
+<br>
+<br>
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Настройка AJAX
+$(function () {
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": getCookie("csrftoken") }
+    });
+});
+
+
+function like()
+{
+    var like = $(this);
+    var type = like.data('type');
+    var pk = like.data('id');
+    var action = like.data('action');
+    var dislike = like.next();
+ 
+    $.ajax({
+        url : "/" + type +"/" + pk + "/" + action + "/",
+        type : 'POST',
+        data : { 'obj' : pk },
+ 
+        success : function (json) {
+            like.find("[data-count='like']").text(json.like_count);
+            dislike.find("[data-count='dislike']").text(json.dislike_count);
+        }
+    });
+ 
+    return false;
+}
+ 
+function dislike()
+{
+    var dislike = $(this);
+    var type = dislike.data('type');
+    var pk = dislike.data('id');
+    var action = dislike.data('action');
+    var like = dislike.prev();
+ 
+    $.ajax({
+        url : "/" + type +"/" + pk + "/" + action + "/",
+        type : 'POST',
+        data : { 'obj' : pk },
+ 
+        success : function (json) {
+            dislike.find("[data-count='dislike']").text(json.dislike_count);
+            like.find("[data-count='like']").text(json.like_count);
+        }
+    });
+ 
+    return false;
+}
+ 
+// Подключение обработчиков
+$(function() {
+    $('[data-action="like"]').click(like);
+    $('[data-action="dislike"]').click(dislike);
+});
+
+$('a.follow').click(function(e){
+    e.preventDefault();
+    $.post('{% url "users:user_follow" %}',
+      {
+        id: $(this).data('id'),
+        action: $(this).data('action')
+      },
+      function(data){
+        if (data['status'] == 'ok') {
+          var previous_action = $('a.follow').data('action');
+
+          // toggle data-action
+          $('a.follow').data('action',
+            previous_action == 'follow' ? 'unfollow' : 'follow');
+          // toggle link text
+          $('a.follow').text(
+            previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+          // update total followers
+          var previous_followers = parseInt(
+            $('span.count .total').text());
+          $('span.count .total').text(previous_action == 'follow' ?
+          previous_followers + 1 : previous_followers - 1);
+        }
+      }
+    );
+  });
+
+
+
+
+
+
+
+</script>
 {% endblock %}

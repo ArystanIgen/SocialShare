@@ -8,6 +8,7 @@ class BlogForm(forms.ModelForm):
         model = Blog
         fields = ['blog_text','photo']
         labels = {'blog_text':''}
+        widgets = {'text': forms.Textarea(attrs={'cols': 40})}
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -18,3 +19,5 @@ class CommentModelForm(BSModalModelForm):
     class Meta:
         model = Comment
         fields = ['cooment_text']
+class Search1Form(forms.Form):
+    query = forms.CharField()

@@ -34,20 +34,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'account',
-    'images',
     'blog',
     'bootstrap4',
     'bootstrap_modal_forms',
     'crispy_forms',
-    'sorl.thumbnail',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'easy_thumbnails',
+    'haystack',
+    'account',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LIKES_OBJS_DICT = {'blog.models': ['Blog', 'Comment']}
@@ -62,6 +61,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bookmarks.urls'
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
 
 TEMPLATES = [
     {

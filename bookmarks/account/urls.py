@@ -25,5 +25,7 @@ urlpatterns = [
     path('register-complete/',views.registration_c,name='registration_c'),
     path('edit/', views.edit, name='edit'),
     path('profile/', views.profile, name='profile'),
-    path('others/<username>',views.others,name='others')
+    path('users/<username>',views.others,name='others'),
+    path('users/', views.user_list, name='user_list'),
+    path('users/follow/', views.user_follow, name='user_follow'),
 ]

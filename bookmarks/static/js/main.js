@@ -114,6 +114,19 @@ function validateEmail(email) {
         return false;
     return true;
 }
+function AddComment(blog_id, comment){
+// validation checks
+    $.ajax({
+        type: "POST",
+        url: "add_comment/",
+        data: {
+            'blog_id' : blog_id,
+            'comment' : comment,
+            'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+        },
+        success: addcommentDetailSuccess,
+        dataType: 'html'
+    });
 
 /* Email Format
  -----------------> Start <-------------------------------

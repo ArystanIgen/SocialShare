@@ -1,0 +1,143 @@
+
+
+
+           <style type="text/css">
+               h1
+{
+    color:#fff;
+    margin:40px 0 60px 0;
+    font-weight:300;
+}
+
+.our-team-main
+{
+    width:100%;
+    height:auto;
+    border-bottom:5px #323233 solid;
+    background: rgba(0, 170, 238, 0.1);
+    text-align:center;
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+    transition:0.5s;
+    margin-bottom:28px;
+    margin-left: 141px;
+}
+
+
+.our-team-main img
+{
+    border-radius:50%;
+    margin-bottom:20px;
+    width: 90px;
+}
+
+.our-team-main h3
+{
+    font-size:20px;
+    font-weight:700;
+}
+
+.our-team-main p
+{
+    margin-bottom:0;
+}
+
+.container {
+    m
+    width: 1068px;
+
+}
+
+.section{
+    display: inline-block;
+    margin: 0 1.5% 24px 1.5%;
+    width: 30%;
+}
+
+
+           </style>
+
+    {% if "query" in request.GET %}
+        <h1>Users containing "{{ cd.query }}"</h1>
+        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
+        {% for result in results %}
+            {% with user=result.object %}
+<div class="container" style="float:left;" id={{user.i}}>
+
+     <div class="col-lg-4">
+    <div class="our-team-main">
+    
+    <div class="team-front"><a href="#Modal" data-toggle="modal" data-target="#myModal{{ user.id }}">
+        {% if user.profile.photo %}
+
+    <img src= "{{user.profile.photo.url}}" class="img-fluid" width="110" height="110"/>
+        
+
+            {% else %}
+            <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU" name="aboutme" width="110" height="100" class="img-circle">
+
+            {% endif %}
+        </a>
+        <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+        
+        
+    </div>
+</div>
+</div>
+</div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                    <h4 class="modal-title" id="myModalLabel" style="
+    margin-right: 20%;
+">More About {{ user.first_name }}</h4>
+                    </div>
+                <div class="modal-body">
+                    <center>
+                        
+                    {% if user.profile.photo %}
+        
+    <img src= "{{user.profile.photo.url}}" class="img-fluid" width="110" height="110"/>
+        
+
+            {% else %}
+            <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU" name="aboutme" width="140" height="140" class="img-circle">
+
+            {% endif %}</a>
+                    <h3 class="media-heading">{{ user.first_name }} {{ user.last_name }} <small>Date of birth:{{user.profile.date_of_birth}}</small></h3>
+                    <span><strong>Skills: </strong></span>
+                        <span class="label label-warning">HTML5/CSS</span>
+                        <span class="label label-info">Adobe CS 5.5</span>
+                        <span class="label label-info">Microsoft Office</span>
+                        <span class="label label-success">Windows XP, Vista, 7</span>
+                    </center>
+                    <hr>
+                    <center>
+                    <p class="text-left"><strong>Bio: </strong><br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.</p>
+                    <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough about Joe</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            {% endwith %}
+            {% empty %}
+            <p>There are no results for your query.</p>
+        {% endfor %}
+        
+   
+        
+    {% endif %}

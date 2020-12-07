@@ -5,16 +5,20 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Blog,Comment,LikeDislike
-from .forms import BlogForm,CommentForm,CommentModelForm
-from bootstrap_modal_forms.generic import BSModalCreateView
+from account.models import Profile
+from .forms import BlogForm,CommentForm,Search1Form
 from django.urls import reverse_lazy
 from django.contrib.contenttypes.models import ContentType
 import json
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.decorators import method_decorator
+from itertools import chain
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.auth.models import User
+from haystack.query import SearchQuerySet
 @login_required
 def dashboard(request):
     """Определяет новую тему."""
+    s_form = Search1Form()
+    users = User.objects.filter(is_active=True)
     if request.method != 'POST':
         form = BlogForm()
 
@@ -29,10 +33,10 @@ def dashboard(request):
             return redirect('blog:dashboard')
     # Вывести пустую или не действительную строку
     latest_post_list=Blog.objects.order_by('-date_added')[:5]
-    return render(request, 'blog/dashboard.html', {'latest_post_list':latest_post_list,'form':form,})
+    return render(request, 'blog/dashboard.html', {'users':users,'latest_post_list':latest_post_list,'form':form,'s_form':s_form})
 @login_required
 def add_comment(request,blog_id):
-
+    s_form = Search1Form()
     blog=Blog.objects.get(id=blog_id)
 
     if request.method!='POST':
@@ -49,7 +53,7 @@ def add_comment(request,blog_id):
             new_comment.save()
             return HttpResponseRedirect('/')
     #Вывести пустую или не действительную строку
-    context={'c_form':c_form,"blog":blog}
+    context={'c_form':c_form,"blog":blog,'s_form':s_form}
     return render(request, 'blog/comment.html', context)
 
 
@@ -104,3 +108,29 @@ def dislike(request, pk):
         }),
         content_type="application/json"
     )
+
+
+def user_search(request):
+    form = Search1Form()
+    cd=None
+    results=[]
+    total_results=None
+    if 'query' in request.GET:
+        form = Search1Form(request.GET)
+        if form.is_valid():
+            cd = form.cleaned_data
+            results = SearchQuerySet().models(User).filter(content=cd['query']).load_all()
+            # count total results
+            total_results = results.count()
+    return render(request,
+                  'blog/search.html',
+                  {'s_form': form,
+                   'cd': cd,
+                   'results': results,
+                   'total_results': total_results})
+
+
+def blog_delete(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    blog.delete()
+    return redirect('users:profile')
