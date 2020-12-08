@@ -32,7 +32,7 @@ def dashboard(request):
             new_post.save()
             return redirect('blog:dashboard')
     # Вывести пустую или не действительную строку
-    latest_post_list=Blog.objects.order_by('-date_added')[:5]
+    latest_post_list=Blog.objects.order_by('-date_added')[:365]
     return render(request, 'blog/dashboard.html', {'users':users,'latest_post_list':latest_post_list,'form':form,'s_form':s_form})
 @login_required
 def add_comment(request,blog_id):

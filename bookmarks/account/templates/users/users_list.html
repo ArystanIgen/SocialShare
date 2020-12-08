@@ -1,20 +1,167 @@
 {% extends "base.html" %}
-{% load thumbnail %}
+
 {% block title %}People{% endblock %}
 {% block content %}
+<style>
+
+
+h1
+{
+    color:#fff;
+    margin:40px 0 60px 0;
+    font-weight:300;
+}
+
+.our-team-main
+{
+    width:100%;
+    height:auto;
+    border-bottom:5px #323233 solid;
+    background: rgba(0, 170, 238, 0.1);
+    text-align:center;
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+    transition:0.5s;
+    margin-bottom:28px;
+}
+
+
+.our-team-main img
+{
+    border-radius:50%;
+    margin-bottom:20px;
+    max-width: 80px;
+    max-height: 90px;
+    min-height: 90px;
+    min-width: 80px;
+}
+
+.our-team-main h3
+{
+    font-size:20px;
+    font-weight:700;
+}
+
+.our-team-main p
+{
+    margin-bottom:0;
+}
+
+.team-back
+{
+    width:100%;
+    height:auto;
+    position:absolute;
+    top:0;
+    left:0;
+    padding:5px 15px 0 15px;
+    text-align:left;
+    background:#fff;
+
+}
+
+.team-front
+{
+    width:100%;
+    height:auto;
+    position:relative;
+    z-index:10;
+    background: rgba(0, 170, 238, 0.1);
+    padding:15px;
+    bottom:0px;
+    transition: all 0.5s ease;
+}
+
+
+/*our-team-main*/
+
+
+    </style>
 <h1>People</h1>
-<div id="people-list">
+<div class="container">
+    <div class="row">
     {% for user in users %}
-    <div class="user">
-        <a href="{{ user.get_absolute_url }}">
-            <img src="{% thumbnail user.profile.photo 180x180 %}">
-        </a>
-        <div class="info">
-        <a href="{{ user.get_absolute_url }}" class="title">
-            {{ user.get_full_name }}
-        </a>
+    {% if request.user  in user.followers.all %}
+    <div class="col-lg-4">
+    <div class="our-team-main">
+
+    <div class="team-front"><a href="#Modal" data-toggle="modal" data-target="#myModal{{ user.id }}">
+        {% if user.profile.photo %}
+
+    <img src= "{{user.profile.photo.url}}" >
+
+    {% else %}
+            <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU" name="aboutme" width="110" height="100" >
+
+            {% endif %}</a>
+            <h5 class="card-title">@{{ user.username }}</h5>
+    </div>
+    </div>
+    </div>
+<div class="modal fade" id="myModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                    <h4 class="modal-title" id="myModalLabel" style="
+    margin-right: 20%;
+">More About {{ user.first_name }}</h4>
+                    </div>
+                <div class="modal-body">
+                    <center>
+
+                    {% if user.profile.photo %}
+
+    <img src= "{{user.profile.photo.url}}" class="img-fluid" width="110" height="110"/>
+
+
+            {% else %}
+            <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU" name="aboutme" width="140" height="140" class="img-circle">
+
+            {% endif %}</a>
+                    <h4 class="media-heading">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                @{{user.username}}
+                            </li>
+                            <li class="list-group-item">
+                                Followers: {{user.followers.count}}
+                            </li>
+                            <li class="list-group-item">
+                        First name :{{ user.first_name }}
+
+
+</li>
+<li class="list-group-item">
+    Last name :{{ user.last_name }}
+</li>
+
+
+
+
+
+</ul>
+
+
+
+
+                    </h4>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <center>
+                    <a href="{% url 'users:others' user.username %}">Go to his profile</a>
+                    </center>
+                </div>
+            </div>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
+</div>
 </div>
 {% endblock %}

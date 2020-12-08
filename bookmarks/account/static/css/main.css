@@ -179,7 +179,7 @@ span {
 }
 
 .createpostbuttons input[type="file"] {
-    display: none !important;
+    
 }
 
 .createpostbuttons input[type=submit] {

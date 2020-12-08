@@ -97,11 +97,13 @@ def others(request,username):
 
 @login_required
 def user_list(request):
+    s_form = Search1Form()
     users = User.objects.filter(is_active=True)
     return render(request,
                   'users/users_list.html',
                   {'section': 'people',
-                   'users': users})
+                   'users': users,
+                   's_form':s_form})
 
 
 @ajax_required

@@ -15,11 +15,7 @@
          {% bootstrap_css%}
 
       <style type="text/css">
-        label {
-    display: inline-block;
-    margin-bottom: .5rem;
-    visibility: hidden;
-}
+        
           .btn3d {
     position:relative;
     top: -6px;
@@ -117,7 +113,7 @@
 <div class="usernav" style="margin-left: 15%;">
 
     <ul>
-        <li><a href="{% url 'blog:dashboard' %}"><img src="{% static 'images/home.png' %}">My Feed</a></li><li><a href="{% url 'users:profile' %}"><img src="{% static 'images/profile.png'  %}">Profile</a></li><li><a href="{% url "users:user_list" %}"><img src="{% static 'images/friends.png' %}">Friends</a></li><li><a href="requests.php"><img src="{% static 'images/frequest.png' %}">Friend Requests </a></li><li><a href="{% url "users:logout" %}"><img src="{% static 'images/exit.png' %}"></a></li>
+        <li><a href="{% url 'blog:dashboard' %}"><img src="{% static 'images/home.png' %}">My Feed</a></li><li><a href="{% url 'users:profile' %}"><img src="{% static 'images/profile.png'  %}">Profile</a></li><li><a href="{% url "users:user_list" %}"><img src="{% static 'images/friends.png' %}">Subscriptions</a></li><li><a href="{% url "users:logout" %}"><img src="{% static 'images/exit.png' %}"></a></li>
     </ul>
     <div class="globalsearch">
                 <form action="{% url 'blog:user_search' %}" method="get"  >
